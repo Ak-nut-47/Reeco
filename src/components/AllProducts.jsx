@@ -15,21 +15,36 @@ import {
 } from "@chakra-ui/react";
 import avacado from "../assets/Avocado Hass.jpg";
 import { FaCheck } from "react-icons/fa";
-import { FaTimes } from "react-icons/fa";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  markApprovedAction,
+  successAction,
+  updateQuantityAction,
+} from "../Redux/action";
+import { store } from "../Redux/store";
+import MissingProductModal from "./MissingProductModal";
 const AllProducts = () => {
-  const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
       .get(`https://640e197b1a18a5db838882f2.mockapi.io/reeco`)
       .then((res) => {
-        console.log(res.data);
-        setProducts(res.data);
+        dispatch(successAction(res.data));
+        console.log(store);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [dispatch]);
+
+  const handleUpdateQuantity = (productId, newQuantity) => {
+    dispatch(updateQuantityAction(productId, newQuantity));
+  };
+
+  const products = useSelector((store) => store.products);
 
   return (
     <Box>
@@ -46,8 +61,8 @@ const AllProducts = () => {
           </Tr>
         </Thead>
         <Tbody>
-          {products?.map((el, index) => (
-            <Tr key={index}>
+          {products?.map((el) => (
+            <Tr key={el.id}>
               <Td>
                 <Image src={avacado} width={"50px"} alt={el.productName} />
               </Td>
@@ -60,13 +75,46 @@ const AllProducts = () => {
                 <Text color={"#898989"}> {"/6 * 1lb"}</Text>
               </Td>
               <Td>
+                {el.approved === true ? (
+                  <Flex
+                    bgColor={"green"}
+                    borderRadius={"30px"}
+                    color={"white"}
+                    p={2}
+                  >
+                    Approved
+                  </Flex>
+                ) : el.approved === "missing" ? (
+                  <Flex
+                    bgColor={"orange"}
+                    borderRadius={"30px"}
+                    color={"white"}
+                    p={2}
+                  >
+                    Missing
+                  </Flex>
+                ) : el.approved === "missingurgent" ? (
+                  <Flex
+                    bgColor={"red"}
+                    borderRadius={"30px"}
+                    color={"white"}
+                    p={2}
+                  >
+                    Missing Urgent
+                  </Flex>
+                ) : null}
+              </Td>
+              <Td>
                 <Flex justifyContent={"space-evenly"} alignItems={"center"}>
-                  <Button border={"1px solid #c9c9c9"}>
+                  <Button
+                    border={"1px solid #c9c9c9"}
+                    onClick={() => dispatch(markApprovedAction(el.id))}
+                    color={el.approved === true ? "green" : null}
+                  >
                     <FaCheck />
                   </Button>
-                  <Button border={"1px solid #c9c9c9"}>
-                    <FaTimes />
-                  </Button>
+
+                  <MissingProductModal {...el} dispatch={dispatch} />
 
                   <Button border={"1px solid #c9c9c9"}>Edit</Button>
                 </Flex>
