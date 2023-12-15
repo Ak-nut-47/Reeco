@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import {
   Box,
@@ -25,6 +25,7 @@ import {
 } from "../Redux/action";
 import { store } from "../Redux/store";
 import MissingProductModal from "./MissingProductModal";
+import EditQuantityModal from "./EditQuantityModal";
 const AllProducts = () => {
   const dispatch = useDispatch();
 
@@ -39,10 +40,6 @@ const AllProducts = () => {
         console.log(error);
       });
   }, [dispatch]);
-
-  const handleUpdateQuantity = (productId, newQuantity) => {
-    dispatch(updateQuantityAction(productId, newQuantity));
-  };
 
   const products = useSelector((store) => store.products);
 
@@ -71,7 +68,9 @@ const AllProducts = () => {
               <Td>{el.price}</Td>
               <Td>{el.quantity}</Td>
               <Td>
-                <Text>{el.price * el.quantity}</Text>
+                <Text>
+                  <b>{el.price * el.quantity}</b>
+                </Text>
                 <Text color={"#898989"}> {"/6 * 1lb"}</Text>
               </Td>
               <Td>
@@ -116,7 +115,7 @@ const AllProducts = () => {
 
                   <MissingProductModal {...el} dispatch={dispatch} />
 
-                  <Button border={"1px solid #c9c9c9"}>Edit</Button>
+                  <EditQuantityModal {...el} dispatch={dispatch} />
                 </Flex>
               </Td>
             </Tr>

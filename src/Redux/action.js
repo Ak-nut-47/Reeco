@@ -1,4 +1,4 @@
-import { ERROR, FAILURE, MARK_ACTION, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType"
+import { ERROR, FAILURE, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType"
 
 export const successAction = (payload) => {
     return { type: SUCCESS, payload: payload }

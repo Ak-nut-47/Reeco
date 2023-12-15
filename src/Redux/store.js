@@ -4,7 +4,7 @@ import { reducer } from "./reducer"
 const initialState = {
     products: [],
     isError: false,
-    isFailure: false
+    isFailure: false,
 }
 
 export const store = legacy_createStore(reducer, initialState)

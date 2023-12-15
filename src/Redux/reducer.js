@@ -1,4 +1,4 @@
-import { ERROR, FAILURE, MARK_ACTION, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType";
+import { ERROR, FAILURE, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType";
 
 export const reducer = (state, { type, payload }) => {
     switch (type) {
@@ -10,8 +10,10 @@ export const reducer = (state, { type, payload }) => {
             return { ...state, isError: true, isFailure: false };
         case UPDATE_QUANTITY:
             const { productId, newQuantity } = payload;
-            const updatedProducts = state.products.map((product) => productId.id === productId ? { ...product, quantity: newQuantity } : product)
-            return { ...state, products: updatedProducts, isError: false, isFailure: false }
+            const updatedProducts = state.products.map((product) =>
+                product.id === productId ? { ...product, quantity: newQuantity } : product
+            );
+            return { ...state, products: updatedProducts, isError: false, isFailure: false };
         case MARK_APPROVED:
             const updatedApprovedProducts = state.products.map((product) => product.id === payload ? { ...product, approved: true } : product);
             return { ...state, products: updatedApprovedProducts, isError: false, isFailure: false };
