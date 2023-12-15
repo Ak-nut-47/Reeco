@@ -1,7 +1,12 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { finalApprovalAction } from "../Redux/action";
 const Orderbar = () => {
+  const approved = useSelector((store) => store.isApproved);
+  const dispatch = useDispatch();
+
   return (
     <Box pl={20} pr={20} boxShadow={"0px 2px 4px rgba(0, 0, 0, 0.1)"}>
       <Flex p={"5px 0px"} h={20}>
@@ -28,8 +33,20 @@ const Orderbar = () => {
             >
               Back
             </Button>
-            <Button bgColor={"#1E633F"} color={"white"} borderRadius={"50px"}>
-              Approve Order
+            <Button
+              bgColor={"#1E633F"}
+              color={"white"}
+              borderRadius={"50px"}
+              cursor={approved ? "not-allowed" : "pointer"}
+              disabled={approved}
+              onClick={() => {
+                if (!approved) {
+                  dispatch(finalApprovalAction());
+                  console.log(approved);
+                }
+              }}
+            >
+              {approved ? "Approved" : "Approve Order"}
             </Button>
           </Flex>
         </Flex>

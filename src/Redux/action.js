@@ -1,4 +1,4 @@
-import { ERROR, FAILURE, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType"
+import { ERROR, FAILURE, FINAL_APPROVAL, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType"
 
 export const successAction = (payload) => {
     return { type: SUCCESS, payload: payload }
@@ -23,4 +23,8 @@ export const markMissingAction = (productId) => {
 }
 export const markMissingUrgent = (productId) => {
     return { type: MARK_MISSING_URGENT, payload: productId }
+}
+
+export const finalApprovalAction = () => {
+    return { type: FINAL_APPROVAL }
 }

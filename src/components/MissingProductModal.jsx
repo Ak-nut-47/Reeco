@@ -13,12 +13,14 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { markMissingAction, markMissingUrgent } from "../Redux/action";
+import { useSelector } from "react-redux";
 const MissingProductModal = ({ productName, id, dispatch, approved }) => {
+  const finalApproval = useSelector((store) => store.isApproved);
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Button
-        onClick={onOpen}
+        onClick={finalApproval ? null : onOpen}
         border={"1px solid #c9c9c9"}
         color={
           approved === true
@@ -29,6 +31,8 @@ const MissingProductModal = ({ productName, id, dispatch, approved }) => {
             ? "red"
             : null
         }
+        cursor={finalApproval ? "not-allowed" : "pointer"}
+        disabled={finalApproval}
       >
         <FaTimes />
       </Button>

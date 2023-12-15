@@ -42,6 +42,7 @@ const AllProducts = () => {
   }, [dispatch]);
 
   const products = useSelector((store) => store.products);
+  const isApproved = useSelector((store) => store.isApproved);
 
   return (
     <Box>
@@ -107,8 +108,14 @@ const AllProducts = () => {
                 <Flex justifyContent={"space-evenly"} alignItems={"center"}>
                   <Button
                     border={"1px solid #c9c9c9"}
-                    onClick={() => dispatch(markApprovedAction(el.id))}
+                    disabled={isApproved}
+                    onClick={() => {
+                      if (!isApproved) {
+                        dispatch(markApprovedAction(el.id));
+                      }
+                    }}
                     color={el.approved === true ? "green" : null}
+                    cursor={isApproved ? "not-allowed" : "pointer"}
                   >
                     <FaCheck />
                   </Button>

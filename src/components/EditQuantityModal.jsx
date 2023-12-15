@@ -18,6 +18,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { updateQuantityAction } from "../Redux/action";
+import { useSelector } from "react-redux";
 
 const EditQuantityModal = ({
   productName,
@@ -36,10 +37,16 @@ const EditQuantityModal = ({
   };
 
   const totalPrice = price * editedQuantity;
-
+  const finalApproval = useSelector((store) => store.isApproved);
   return (
     <>
-      <Button onClick={onOpen} border={"1px solid #c9c9c9"} color="">
+      <Button
+        onClick={finalApproval ? null : onOpen}
+        border={"1px solid #c9c9c9"}
+        color=""
+        cursor={finalApproval ? "not-allowed" : "pointer"}
+        disabled={finalApproval}
+      >
         Edit
       </Button>
 
