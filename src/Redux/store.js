@@ -5,7 +5,8 @@ const initialState = {
     products: [],
     isError: false,
     isFailure: false,
-    isApproved: false
+    isApproved: false,
+    highlightedReasons: {},
 }
 
 export const store = legacy_createStore(reducer, initialState)

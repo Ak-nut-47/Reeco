@@ -1,4 +1,4 @@
-import { ERROR, FAILURE, FINAL_APPROVAL, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType";
+import { ERROR, FAILURE, FINAL_APPROVAL, HIGHLIGHT_REASON, MARK_APPROVED, MARK_MISSING, MARK_MISSING_URGENT, SUCCESS, UPDATE_QUANTITY } from "./actionType";
 
 export const reducer = (state, { type, payload }) => {
     switch (type) {
@@ -25,6 +25,13 @@ export const reducer = (state, { type, payload }) => {
             return { ...state, products: updatedMissingUrgentProducts, isError: false, isFailure: false };
         case FINAL_APPROVAL:
             return { ...state, isApproved: true, isError: false, isFailure: false }
+        case HIGHLIGHT_REASON:
+            const { pId, reason } = payload;
+            const updatedHighlightedReasons = { ...state.highlightedReasons, [pId]: reason };
+            return { ...state, highlightedReasons: updatedHighlightedReasons };
+
+        // ... other cases
+
         default:
             return state;
     }

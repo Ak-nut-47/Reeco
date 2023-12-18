@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import avacado from "../assets/Avocado Hass.jpg";
+
 import {
   Modal,
   ModalOverlay,
@@ -17,7 +18,7 @@ import {
   useDisclosure,
   Image,
 } from "@chakra-ui/react";
-import { updateQuantityAction } from "../Redux/action";
+import { highlightReasonAction, updateQuantityAction } from "../Redux/action";
 import { useSelector } from "react-redux";
 
 const EditQuantityModal = ({
@@ -31,6 +32,7 @@ const EditQuantityModal = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [editedQuantity, setEditedQuantity] = useState(quantity);
+  const highlightedReasons = useSelector((state) => state.highlightedReasons);
 
   const handleQuantityChange = (newQuantity) => {
     setEditedQuantity(newQuantity);
@@ -38,6 +40,13 @@ const EditQuantityModal = ({
 
   const totalPrice = price * editedQuantity;
   const finalApproval = useSelector((store) => store.isApproved);
+
+  const handleReasonClick = (reason) => {
+    dispatch(highlightReasonAction(id, reason));
+  };
+
+  const isHighlighted = (reason) => highlightedReasons[id] === reason;
+
   return (
     <>
       <Button
@@ -110,16 +119,48 @@ const EditQuantityModal = ({
                 <Text>(Optional) </Text>
               </Flex>
               <Flex gap={5}>
-                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                <Button
+                  size={"sm"}
+                  fontSize={"10"}
+                  borderRadius={"40px"}
+                  onClick={() => handleReasonClick("Missing Product")}
+                  variant={
+                    isHighlighted("Missing Product") ? "solid" : "outline"
+                  }
+                >
                   Missing Product
                 </Button>
-                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                <Button
+                  size={"sm"}
+                  fontSize={"10"}
+                  borderRadius={"40px"}
+                  onClick={() => handleReasonClick("Quantity is not the same")}
+                  variant={
+                    isHighlighted("Quantity is not the same")
+                      ? "solid"
+                      : "outline"
+                  }
+                >
                   Quantity is not the same
                 </Button>
-                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
-                  Price is not the same{" "}
+                <Button
+                  size={"sm"}
+                  fontSize={"10"}
+                  borderRadius={"40px"}
+                  onClick={() => handleReasonClick("Price is not the same")}
+                  variant={
+                    isHighlighted("Price is not the same") ? "solid" : "outline"
+                  }
+                >
+                  Price is not the same
                 </Button>
-                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                <Button
+                  size={"sm"}
+                  fontSize={"10"}
+                  borderRadius={"40px"}
+                  onClick={() => handleReasonClick("Other")}
+                  variant={isHighlighted("Other") ? "solid" : "outline"}
+                >
                   Other
                 </Button>
               </Flex>

@@ -6,3 +6,5 @@ export const MARK_APPROVED = "MARK_APPROVED"
 export const MARK_MISSING = "MARK_MISSING"
 export const MARK_MISSING_URGENT = "MARK_MISSING_URGENT"
 export const FINAL_APPROVAL = "FINAL_APPROVAL"
+//----optional 
+export const HIGHLIGHT_REASON = "HIGHLIGHT_REASON";
