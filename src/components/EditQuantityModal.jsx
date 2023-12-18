@@ -104,6 +104,26 @@ const EditQuantityModal = ({
                 </Text>
               </Flex>
             </Flex>
+            <Flex direction={"column"} gap={3}>
+              <Flex>
+                <b>Choose Reason </b>
+                <Text>(Optional) </Text>
+              </Flex>
+              <Flex gap={5}>
+                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                  Missing Product
+                </Button>
+                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                  Quantity is not the same
+                </Button>
+                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                  Price is not the same{" "}
+                </Button>
+                <Button size={"sm"} fontSize={"10"} borderRadius={"40px"}>
+                  Other
+                </Button>
+              </Flex>
+            </Flex>
           </ModalBody>
           <ModalFooter>
             <Button
