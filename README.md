@@ -23,7 +23,8 @@ The main page displays order information. When the shipping date arrives, the us
 
 
 - Clicking "Edit" will open an Edit Popup for updating product details.
-  ![Screenshot 2023-12-18 160508](https://github.com/Ak-nut-47/reeco/assets/104593018/55835859-9264-4d73-9a48-0e9529ef9836)
+![Screenshot 2023-12-18 163352](https://github.com/Ak-nut-47/reeco/assets/104593018/393c678e-d26b-4190-9103-20e0922c6e5f)
+
 
 
 ### Missing Status Options
